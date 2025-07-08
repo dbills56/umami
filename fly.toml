@@ -1,0 +1,27 @@
+app = "umami-yourappname" # Change to your Fly app name
+
+primary_region = "iad" # Choose your preferred Fly region
+
+[build]
+  builder = "paketobuildpacks/builder:base"
+
+[env]
+  NODE_ENV = "production"
+  DATABASE_TYPE = "postgresql"
+  DATABASE_URL = "postgresql://postgres:9bNKt1VxezsGsj32@db.ovpneeduwrzppgojmbgs.co:5432/postgres?sslmode=require"
+  HASH_SALT = "SEFwerfesDFsfegs" # Can be any secure string
+
+[experimental]
+  auto_rollback = true
+
+[[services]]
+  internal_port = 3000
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
